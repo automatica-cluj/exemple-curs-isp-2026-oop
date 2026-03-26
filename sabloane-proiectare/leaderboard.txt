@@ -1,0 +1,7 @@
+dan:7
+alex:6
+Bob:3
+kjhasd:0
+mihai:0
+Alice:5
+xyz:0
