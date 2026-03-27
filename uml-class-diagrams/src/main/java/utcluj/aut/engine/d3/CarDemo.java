@@ -131,8 +131,10 @@ public class CarDemo {
             Engine engine = ef.createEngine();
             if (engine == null) {
                 System.out.println("Engine " + i + ": test failed");
+
             } else {
                 System.out.println("Engine " + i + ": " + engine);
+                engine.start();
             }
         }
     }
