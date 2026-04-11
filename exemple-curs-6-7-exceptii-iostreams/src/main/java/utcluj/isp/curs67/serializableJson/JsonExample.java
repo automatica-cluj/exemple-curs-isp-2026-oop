@@ -7,9 +7,11 @@ package utcluj.isp.curs67.serializableJson;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import utcluj.isp.curs67.files.FileReadUtil;
+import utcluj.isp.curs67.files.FilesAndFoldersUtil;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.stream.Collectors;
 
 /**
@@ -20,15 +22,16 @@ import java.util.stream.Collectors;
 public class JsonExample {
     public static void main(String[] args) throws IOException {
     
-        String workingFolder = "c:\\_tmp";
+        String workingFolder = Paths.get("data", "serializableJson").toAbsolutePath().toString();
+        FilesAndFoldersUtil.createFolder(workingFolder);
         ObjectMapper objectMapper = new ObjectMapper();
 
         Vehicle v1 = new Vehicle("CJ01AAA", "150,78", "673,90", 70);
-        
-        objectMapper.writeValue(new FileWriter(workingFolder+"\\"+"car1.json"), v1);
-        
+
+        objectMapper.writeValue(new FileWriter(Paths.get(workingFolder, "car1.json").toString()), v1);
+
         //use collection streams to concatenate all lines from file into a single String. We can also use simple for loop here.
-        String jsonContent = FileReadUtil.readAllFileLines(workingFolder+"\\"+"car1.json").stream().collect( Collectors.joining( "\n" ));
+        String jsonContent = FileReadUtil.readAllFileLines(Paths.get(workingFolder, "car1.json").toString()).stream().collect( Collectors.joining( "\n" ));
         
         Vehicle v2 = objectMapper.readValue(jsonContent, Vehicle.class);
         System.out.println("Vehicle read from file: "+v2);

@@ -10,6 +10,7 @@ import utcluj.isp.curs67.workTrucksMonitoring.service.TrackingVehicleService;
 import utcluj.isp.curs67.workTrucksMonitoring.repository.TruckFileJsonRepository;
 import utcluj.isp.curs67.workTrucksMonitoring.service.TruckNotFoundException;
 import utcluj.isp.curs67.workTrucksMonitoring.view.MapViewerJFrame;
+import java.nio.file.Paths;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
 import org.jxmapviewer.viewer.GeoPosition;
@@ -22,7 +23,7 @@ public class App1 {
 
 
     public static void main(String[] args) {
-        TruckFileJsonRepository repository = new TruckFileJsonRepository("c:\\_tmp");
+        TruckFileJsonRepository repository = new TruckFileJsonRepository(Paths.get("data", "workTrucksMonitoring").toAbsolutePath().toString());
         TrackingVehicleService service = new TrackingVehicleService(repository);
 
 

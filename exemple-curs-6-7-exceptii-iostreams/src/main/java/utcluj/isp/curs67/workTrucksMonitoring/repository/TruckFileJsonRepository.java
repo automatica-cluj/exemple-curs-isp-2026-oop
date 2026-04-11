@@ -12,6 +12,7 @@ import utcluj.isp.curs67.workTrucksMonitoring.model.Truck;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -35,7 +36,7 @@ public class TruckFileJsonRepository implements ITruckRepository {
     @Override
     public void save(Truck t) {
         try {
-            objectMapper.writeValue(new FileWriter(workingFolder+"\\"+"record_"+t.getPlateNumber()+"_"+System.currentTimeMillis()+".json"), t);
+            objectMapper.writeValue(new FileWriter(Paths.get(workingFolder, "record_"+t.getPlateNumber()+"_"+System.currentTimeMillis()+".json").toString()), t);
         } catch (IOException ex) {
             Logger.getLogger(TruckFileJsonRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -48,7 +49,7 @@ public class TruckFileJsonRepository implements ITruckRepository {
             List<String> files = FilesAndFoldersUtil.getFilesInFolder(workingFolder);
             for(String file: files){
                 //read content of the file in a single string object
-                String jsonContent = FileReadUtil.readAllFileLines(workingFolder+"\\"+file).stream().collect( Collectors.joining( "\n" ));
+                String jsonContent = FileReadUtil.readAllFileLines(Paths.get(workingFolder, file).toString()).stream().collect( Collectors.joining( "\n" ));
                 Truck t = objectMapper.readValue(jsonContent, Truck.class);
                 trucks.add(t);
             }

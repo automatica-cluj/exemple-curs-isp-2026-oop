@@ -8,6 +8,7 @@ package utcluj.isp.curs67.serializableObject;
 import utcluj.isp.curs67.files.FilesAndFoldersUtil;
 
 import java.io.*;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,30 +46,30 @@ public class SerializableExample {
 
    
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        String workingFolder = "c:\\_tmp2";
+        String workingFolder = Paths.get("data", "serializableObject").toAbsolutePath().toString();
+        FilesAndFoldersUtil.createFolder(workingFolder);
+
 //        AirwayRoute v1 = new AirwayRoute();
 //        v1.addWaypoint(new Waypoint("A01"));
 //        v1.addWaypoint(new Waypoint("A02"));
 //        v1.addWaypoint(new Waypoint("A03"));
 //        v1.addWaypoint(new Waypoint("A04"));
 //
-//        writeAR(v1, workingFolder+"\\mywaypoint.dat");
+//        writeAR(v1, Paths.get(workingFolder, "mywaypoint.dat").toString());
 
-//        AirwayRoute v2 = readAR(workingFolder+"\\mywaypoint.dat");
+//        AirwayRoute v2 = readAR(Paths.get(workingFolder, "mywaypoint.dat").toString());
 //        v2.display();
 
-//        FilesAndFoldersUtil.createFolder(workingFolder);
-//        
-//        writeVehicle(new Vehicle("CJ01AAA", "150,78", "673,90", 70), workingFolder+"\\"+"car1.dat");
-//        writeVehicle(new Vehicle("CJ02AAA", "150,78", "673,90", 50), workingFolder+"\\"+"car2.dat");
-//        writeVehicle(new Vehicle("CJ03AAA", "150,78", "673,90", 90), workingFolder+"\\"+"car3.dat");
-//        writeVehicle(new Vehicle("CJ04AAA", "150,78", "673,90", 170), workingFolder+"\\"+"car4.dat");
+        writeVehicle(new Vehicle("CJ01AAA", "150,78", "673,90", 70), Paths.get(workingFolder, "car1.dat").toString());
+        writeVehicle(new Vehicle("CJ02AAA", "150,78", "673,90", 50), Paths.get(workingFolder, "car2.dat").toString());
+        writeVehicle(new Vehicle("CJ03AAA", "150,78", "673,90", 90), Paths.get(workingFolder, "car3.dat").toString());
+        writeVehicle(new Vehicle("CJ04AAA", "150,78", "673,90", 170), Paths.get(workingFolder, "car4.dat").toString());
 
-        // FilesAndFoldersUtil.getFilesInFolder(workingFolder).stream().forEach((s)->System.out.println(""));
+        FilesAndFoldersUtil.getFilesInFolder(workingFolder).stream().forEach((s)->System.out.println(s));
 
           List<String> files = FilesAndFoldersUtil.getFilesInFolder(workingFolder);
           for(String f: files){
-              Vehicle v = readVehicle(workingFolder+"\\"+f);
+              Vehicle v = readVehicle(Paths.get(workingFolder, f).toString());
               System.out.println(v);
           }
     }
